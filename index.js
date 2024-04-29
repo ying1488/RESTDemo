@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.set('views', path.join(__dirname, 'views'))
@@ -37,20 +36,11 @@ app.get('/comments/new', (req, res) => {
 })
 
 app.post('/comments', (req, res) => {
-
-  console.log(req.body)
-  res.send('it worked')
+  const { username, comment } = req.body;
+  comments.push({ username, comment })
+  res.redirect('/comments');
 })
 
-
-app.get('/tacos', (req, res) => {
-  res.send("GET /tacos response")
-})
-
-app.post('/tacos', (req, res) => {
-  const { meat, qty } = req.body;
-  res.send(`ok, here are your ${qty} ${meat} tacos`)
-})
 
 app.listen(3000, () => {
   console.log("ON PORT 3000!")
